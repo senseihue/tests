@@ -1,5 +1,5 @@
 import axios from "axios"
-import type { AxiosResponse } from "axios"
+import type { AxiosError, AxiosResponse } from "axios"
 
 const addExtraMethods = (axiosInstance: Record<string, any>) => {
   const methods = ["request", "delete", "get", "head", "options", "post", "put", "patch"]
@@ -17,22 +17,31 @@ const addExtraMethods = (axiosInstance: Record<string, any>) => {
 export default defineNuxtPlugin(() => {
   const { $i18n, $toast } = useNuxtApp()
 
-  const http = axios.create({ baseURL: "/gateway" })
+  const options = {
+    baseURL: "/gateway",
+    withCredentials: true,
+    headers: {
+      accept: "*/*",
+      contentType: "application/json"
+    }
+  }
+
+  const http = axios.create(options)
   addExtraMethods(http)
 
   http.interceptors.request.use(
     (config) => {
       config.headers = config.headers || {}
-      config.headers["Accept-Language"] = $i18n.locale.value
+
+      config.headers["Accept-Language"] = sessionLocale.value || $i18n.locale.value
 
       const headerToken = config.headers["Authorization"]
       const token = localStorage.getItem("token")
-      if (!headerToken && token) config.headers["Authorization"] = `Bearer ${token}`
-
+      if (!config.headers?.disableAuth && !headerToken && token) config.headers["Authorization"] = `Bearer ${token}`
+      delete config.headers?.disableAuth
       return config
     },
     (error) => {
-      console.error(error)
       return Promise.reject(error)
     }
   )
@@ -50,9 +59,14 @@ export default defineNuxtPlugin(() => {
 
       return response
     },
-    (error: any) => {
-      const errors = error?.response?.data?.errors
-      if (errors?.length) errors?.forEach((message: string) => $toast.error(message))
+    (error: AxiosError) => {
+      const code: Record<number, string> = {
+        401: $i18n.t("messages.error.unauthorized"),
+        403: $i18n.t("messages.error.forbidden")
+      }
+
+      if (error.response?.status) $toast.error(code[error.response.status])
+
       return Promise.reject(error.response)
     }
   )

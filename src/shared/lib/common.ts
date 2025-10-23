@@ -27,3 +27,11 @@ export const transformParams = (cleanedParams: Record<string, any>, transformati
 export const disableKeys = (event: KeyboardEvent, keys: string[]) => {
   if (keys.includes(event.key)) event.preventDefault()
 }
+
+
+export const getLast = (arr: Array<any>) => {
+  if (!arr || arr.length === 0 || !Array.isArray(arr)) return null
+  return arr[arr.length - 1]
+}
+
+export const sessionLocale: RemovableRef<string | null | undefined> = useSessionStorage("locale", null)

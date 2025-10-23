@@ -2,30 +2,22 @@ export default defineNuxtPlugin(() => {
   const router = useRouter()
   const localePath = useLocalePath()
 
-  const token = localStorage.getItem("token")
-  const loaded = useState<boolean>("loaded", () => ref(false))
-  const loading = useState<boolean>("loading", () => ref(false))
-  const profile = useState<ISessionProfile | undefined>("profile", () =>
-    ref({
-      id: 1,
-      name: "Super",
-      email: "admin@gmail.com",
-      phone: "+998999999999",
-      surname: "Admin"
-    })
-  )
+  const token = useLocalStorage("token", "", { writeDefaults: false })
+  const loaded = useState<boolean>("loaded", () => ref(false)) // Profile is loaded
+  const loading = useState<boolean>("loading", () => ref(false)) // Flag for loading
+  const profile = useState<ISessionProfile | undefined>("profile", () => ref())
 
-  const loggedIn = computed(() => token && profile.value?.id)
+  const loggedIn = computed(() => token.value && profile.value?.id)
 
   watch(loggedIn, (value) => {
     if (!value) {
-      localStorage.removeItem("token")
+      token.value = ""
       profile.value = undefined
     }
   })
 
   const clear = () => {
-    localStorage.removeItem("token")
+    token.value = ""
     loading.value = false
     profile.value = undefined
     router.replace(localePath("/auth/sign-in"))

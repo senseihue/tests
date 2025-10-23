@@ -2,17 +2,18 @@ import mitt from "mitt"
 import type { Handler } from "mitt"
 
 export default defineNuxtPlugin(() => {
-  const emitter = mitt<IEvent>()
+  const mitter = mitt<IMitt>()
 
-  const listen = <Key extends keyof IEvent>(type: Key, handler: Handler<IEvent[Key]>) => {
-    onMounted(() => emitter.on(type, handler))
-    onBeforeUnmount(() => emitter.off(type, handler))
+  const listen = <Key extends keyof IMitt>(type: Key, handler: Handler<IMitt[Key]>) => {
+    onMounted(() => mitter.on(type, handler))
+    onBeforeUnmount(() => mitter.off(type, handler))
   }
 
   return {
     provide: {
       listen,
-      emit: emitter.emit
+      mitt: mitter.emit,
+      mitter
     }
   }
 })
