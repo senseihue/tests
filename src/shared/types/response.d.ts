@@ -11,23 +11,31 @@ interface IResult {
 
 interface IPagination {
   total: number
-  prev: number
-  next: number
-  current: number
+  count: number
+  per_page: number
+  current_page: number
+  total_pages: number
+  links: {
+    next?: any
+    previous?: any
+  }
 }
-
 interface IResponse<T> {
-  content: T
+  data: T
   errors?: string[]
-  pageable?: IPagination
+  message: string
 }
 
 type ResponseContainer<T = any> = IResponse<T>
-type AsyncResponseContainer<T = any> = Promise<IResponse<T>>
-
+type AsyncResponseContainer<T = any | PageableResponse> = Promise<IResponse<T>>
+type PageableResponse<T = any> = {
+  [key: string]: T
+  meta: IPagination
+}
 interface PaginationParams {
   keyword: string
   page: number
   size: number
   total: number
 }
+

@@ -9,14 +9,14 @@ interface UseSelectProps<T> {
 }
 
 export const useSelect = <T>({
-                               api,
-                               map,
-                               params,
-                               el,
-                               model,
-                               autoSelect = false,
-                               fetchOnOpen = false
-                             }: UseSelectProps<T>) => {
+  api,
+  map,
+  params,
+  el,
+  model,
+  autoSelect = false,
+  fetchOnOpen = false
+}: UseSelectProps<T>) => {
   const options = ref<ISelect[]>([])
 
   const getOptions = async () => {

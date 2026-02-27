@@ -7,11 +7,11 @@ declare global {
 
 export class SignIn {
   hash: string = ""
-  email: string = ""
+  login: string = ""
   password: string = ""
 }
 
 export class ForgotPassword {
   hash: string = ""
-  email: string = ""
+  login: string = ""
 }

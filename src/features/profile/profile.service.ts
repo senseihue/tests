@@ -9,8 +9,8 @@ export const useProfileService = () => {
 
   const getProfile = async () => {
     try {
-      const { content } = await profileApi.getProfile()
-      $session.profile.value = content
+      const { data } = await profileApi.getProfile()
+      $session.profile.value = data
       $session.loaded.value = true
     } catch (error: any) {
       const statusList = [401, 403]

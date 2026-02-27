@@ -28,7 +28,6 @@ export const disableKeys = (event: KeyboardEvent, keys: string[]) => {
   if (keys.includes(event.key)) event.preventDefault()
 }
 
-
 export const getLast = (arr: Array<any>) => {
   if (!arr || arr.length === 0 || !Array.isArray(arr)) return null
   return arr[arr.length - 1]

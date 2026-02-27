@@ -1,14 +1,14 @@
 import { Role } from "~/entities/role"
 
 export const useRoleApi = () => {
-  const BASE_URL = "/role"
+  const BASE_URL = "/roles"
   const { $http } = useNuxtApp()
 
-  const getRoleList = (params: Record<string, any>): AsyncResponseContainer<IRole[]> => {
+  const getRoleList = (params: Record<string, any>): AsyncResponseContainer<PageableResponse<IRole[]>> => {
     return $http.$get(BASE_URL, { params })
   }
 
-  const getRoleById = (id: number): AsyncResponseContainer<Role> => {
+  const getRoleById = (id: number): AsyncResponseContainer<IRole> => {
     return $http.$get(`${BASE_URL}/${id}`)
   }
 

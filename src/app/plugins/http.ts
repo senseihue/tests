@@ -15,10 +15,9 @@ const addExtraMethods = (axiosInstance: Record<string, any>) => {
 }
 
 export default defineNuxtPlugin(() => {
-  const { $i18n, $toast } = useNuxtApp()
-
+  const { $i18n, $toast, $config } = useNuxtApp()
   const options = {
-    baseURL: "/gateway",
+    baseURL: $config.public.apiUrl,
     withCredentials: true,
     headers: {
       accept: "*/*",

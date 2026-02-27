@@ -1,8 +1,6 @@
 import { debounce } from "lodash-es"
-import { useRoleApi } from "~/features/role"
+import { useRoleApi } from "./role.api"
 import { useRoleStore } from "~/entities/role"
-
-import { Role } from "~/entities/role"
 
 export const useRoleService = () => {
   const roleApi = useRoleApi()
@@ -18,9 +16,9 @@ export const useRoleService = () => {
 
     roleApi
       .getRoleList(cleanParams(roleStore.params))
-      .then(({ content, pageable }) => {
-        roleStore.items = content
-        roleStore.params.total = pageable?.total ?? 0
+      .then(({ data }) => {
+        roleStore.items = data.models
+        roleStore.params.total = data.meta?.total ?? 0
       })
       .finally(() => (roleStore.loading = false))
   }
@@ -32,15 +30,15 @@ export const useRoleService = () => {
 
   const debouncedFilterRoleList = debounce(filterRoleList, 600)
 
-  const getRole = (id: number, dto: Ref<Role>, loading: Ref<boolean>) => {
+  const getRole = (id: number, dto: Ref<IRole>, loading: Ref<boolean>) => {
     loading.value = true
     roleApi
       .getRoleById(id)
-      .then(({ content }) => (dto.value = content))
+      .then(({ data }) => (dto.value = data))
       .finally(() => (loading.value = false))
   }
 
-  const saveRole = (dto: Ref<Role>, loading: Ref<boolean>) => {
+  const saveRole = (dto: Ref<IRole>, loading: Ref<boolean>) => {
     loading.value = true
     const action = dto.value.id ? roleApi.updateRole : roleApi.createRole
 

@@ -1,11 +1,11 @@
 import { Profile, ProfilePassword } from "~/entities/profile"
 
 export const useProfileApi = () => {
-  const BASE_URL = "/profile"
+  const BASE_URL = ""
   const { $http } = useNuxtApp()
 
   const getProfile = (): AsyncResponseContainer<ISessionProfile> => {
-    return $http.$get(BASE_URL)
+    return $http.$get(`${BASE_URL}/me`)
   }
 
   const updateProfile = (payload: Profile): AsyncResponseContainer<ISessionProfile> => {

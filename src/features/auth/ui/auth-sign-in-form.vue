@@ -10,7 +10,7 @@ const loading = ref(false)
 const form = ref<SignIn>(new SignIn())
 
 const rules = ref({
-  email: { required, email },
+  login: { required },
   password: { required, minLength: minLength(5) }
 })
 
@@ -24,13 +24,13 @@ const onSubmit = async () => {
 
 <template>
   <form class="grid gap-4" @submit.prevent="onSubmit">
-    <ui-form-group v-bind="hasError('email')" v-slot="{ id }" :label="$t('labels.email')">
+    <ui-form-group v-bind="hasError('login')" v-slot="{ id }" :label="$t('labels.login')">
       <ui-input-group>
         <template #before>
-          <icon class="ml-1 text-lg text-gray-400" name="lucide:mail" />
+          <icon class="ml-1 text-lg text-gray-400" name="lucide:user" />
         </template>
 
-        <ui-input v-model="form.email" autofocus tabindex="1" :id :placeholder="$t('placeholders.enter_email')" />
+        <ui-input v-model="form.login" autofocus tabindex="1" :id :placeholder="$t('placeholders.login')" />
       </ui-input-group>
     </ui-form-group>
 

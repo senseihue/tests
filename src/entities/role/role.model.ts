@@ -5,17 +5,23 @@ declare global {
 
   interface IRole {
     id: number
-    name: string
-    description: string
+    key: string
+    users_count: number
+    name: any
+    level: string | null
+    permissions: number[]
     created_at: string
-    updated_at: string
-    permissions: string[]
+    includes: any[]
   }
 }
 
 export class Role {
   id!: number
-  name: string = ""
-  description: string = ""
-  permissions: string[] = []
+  key: string = ""
+  users_count: number = 0
+  name: { uz: string; ru: string; uzc: string } = { uz: "", ru: "", uzc: "" }
+  level: string | null = null
+  permissions: number[] = []
+  created_at: string = ""
+  includes: any[] = []
 }

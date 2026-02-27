@@ -23,26 +23,21 @@ const cols = computed<ITableCol<IRole>[]>(() => [
     label: t("labels.name")
   },
   {
-    name: "description",
-    label: t("labels.description")
+    name: "key",
+    label: t("labels.key")
+  },
+  {
+    name: "users_count",
+    label: t("labels.users_count")
   },
   {
     name: "created_at",
     label: t("labels.created_at"),
-    formatter: (value) => value && formatDate(value, "DD.MM.YYYY HH:mm:ss")
-  },
-  {
-    name: "updated_at",
-    label: t("labels.updated_at"),
-    formatter: (value) => value && formatDate(value, "DD.MM.YYYY HH:mm:ss")
+    formatter: (value) => value && formatDate(value, "DD.MM.YYYY HH:mm")
   },
   {
     name: "actions",
     label: t("thead.actions"),
-    labelClass: "justify-end",
-    headClass: "right-0",
-    dataClass: "right-0",
-    fixed: true
   }
 ])
 
