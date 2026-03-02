@@ -1,6 +1,6 @@
 declare global {
   interface IModal {
-    role: number
+    role: { id?: number }
   }
 
   interface IRole {

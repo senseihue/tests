@@ -17,5 +17,6 @@ export default defineNuxtRouteMiddleware(async (to) => {
   }
 
   if (hasToken && !$session.profile.value) await getProfile()
+  console.log("Session middleware", { hasToken, isPublic, unauthorized, profile: $session.profile.value })
   if (unauthorized) return navigateTo(localePath("/auth/sign-in"))
 })

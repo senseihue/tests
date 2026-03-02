@@ -1,26 +1,39 @@
 declare global {
   interface IModal {
-    user: number
-  }
-
-  interface IUser {
-    id: number
-    name: string
-    surname: string
-    email: string
-    phone: string
-    role: string
-    created_at: string
-    updated_at: string
+    user: { id?: number };
+    "user-password": { id?: number };
   }
 }
 
-export class User {
-  id!: number
-  role_id!: number
-  name: string = ""
-  surname: string = ""
-  email: string = ""
-  phone: string = ""
-  password: string = ""
+export interface IUser {
+  id?: number;
+  first_name: string;
+  last_name: string;
+  patronymic?: string | null;
+  passport?: string | null;
+  tin?: string | null;
+  birth_date?: string | null;
+  phone: string | null;
+  role_id: number;
+  login: string;
+  password?: string;
+  status: boolean;
+  created_at?: string;
+  updated_at?: string;
+  includes?: any[];
+}
+
+export class User implements IUser {
+  id!: number;
+  first_name: string = "";
+  last_name: string = "";
+  patronymic: string | null = null;
+  passport: string | null = null;
+  tin: string | null = null;
+  birth_date: string | null = null;
+  phone: string | null = null;
+  role_id: number = 0;
+  login: string = "";
+  password?: string = "";
+  status: boolean = true;
 }

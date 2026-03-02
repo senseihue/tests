@@ -35,8 +35,9 @@ export default defineNuxtPlugin(() => {
       config.headers["Accept-Language"] = sessionLocale.value || $i18n.locale.value
 
       const headerToken = config.headers["Authorization"]
-      const token = localStorage.getItem("token")
-      if (!config.headers?.disableAuth && !headerToken && token) config.headers["Authorization"] = `Bearer ${token}`
+      const token = useCookie("token")
+      if (!config.headers?.disableAuth && !headerToken && token.value)
+        config.headers["Authorization"] = `Bearer ${token.value}`
       delete config.headers?.disableAuth
       return config
     },

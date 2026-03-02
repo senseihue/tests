@@ -18,8 +18,10 @@ export const useAuthService = () => {
       .signIn(payload.value)
       .then(({ data }) => {
         if (!data.token) return
-        localStorage.setItem("token", data.token)
-        router.replace(localePath("/"))
+        const token = useCookie("token")
+        token.value = data.token
+        console.log("Sign in successful", { token: token.value })
+        navigateTo(localePath("/"))
       })
       .finally(() => (loading.value = false))
   }

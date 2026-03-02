@@ -1,13 +1,14 @@
 export default defineNuxtPlugin(() => {
-  const router = useRouter()
+  const route = useRoute()
   const localePath = useLocalePath()
 
-  const token = useLocalStorage("token", "", { writeDefaults: false })
-  const loaded = useState<boolean>("loaded", () => ref(false)) // Profile is loaded
-  const loading = useState<boolean>("loading", () => ref(false)) // Flag for loading
-  const profile = useState<ISessionProfile | undefined>("profile", () => ref())
-
-  const loggedIn = computed(() => token.value && profile.value?.id)
+  const token = useCookie<string | undefined>("token")
+  const loaded = ref(false) // Profile is loaded
+  const loading = ref(false) // Flag for loading
+  const profile = ref<ISessionProfile>()
+  const loggedIn = computed(() => {
+    return !!profile.value
+  })
 
   watch(loggedIn, (value) => {
     if (!value) {
@@ -17,11 +18,21 @@ export default defineNuxtPlugin(() => {
   })
 
   const clear = () => {
-    token.value = ""
+    token.value = undefined
     loading.value = false
     profile.value = undefined
-    router.replace(localePath("/auth/sign-in"))
+    if (route.meta.protected) {
+      reloadNuxtApp({ path: localePath("/"), force: true })
+    }
   }
+
+  watch(
+    () => token.value,
+    (value) => {
+      if (!value?.length) clear()
+      // else reloadNuxtApp({ path: localePath("/"), force: true })
+    }
+  )
 
   const session = {
     token,
