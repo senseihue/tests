@@ -1,6 +1,6 @@
 import { debounce } from "lodash-es"
-import { useRoleApi } from "./role.api"
-import { useRoleStore } from "~/entities/role"
+import { useRoleApi } from "@/features/role"
+import { Role, useRoleStore } from "~/entities/role"
 
 export const useRoleService = () => {
   const roleApi = useRoleApi()
@@ -34,17 +34,18 @@ export const useRoleService = () => {
     loading.value = true
     roleApi
       .getRoleById(id)
-      .then(({ data }) => (dto.value = data))
+      .then(({ data }) => (dto.value = Role.fromResponse(data)))
       .finally(() => (loading.value = false))
   }
 
-  const saveRole = (dto: Ref<IRole>, loading: Ref<boolean>) => {
+  const saveRole = (dto: Ref<IRole>, loading: Ref<boolean>, onSuccess?: () => void) => {
     loading.value = true
     const action = dto.value.id ? roleApi.updateRole : roleApi.createRole
 
     action(dto.value)
       .then(() => {
-        modal.hide("role")
+        if (onSuccess) onSuccess()
+        else modal.hide("role")
         $toast.success(t("messages.success.saved"))
         getRoleList()
       })

@@ -17,7 +17,7 @@ Follow these exact phases in order. For each phase, you must reference and stric
 1. Fetch the data from the provided URL/cURL.
 2. Draft the `.model.ts`, `.store.ts`, `.api.ts`, and `.service.ts`.
 3. Draft the basic `.vue` list and modal components.
-*Rule Check:* Ensure all Composable functions (`useModal`, `useNuxtApp`) are assigned to variables (`const modal = useModal()`) and not chained!
+*Rule Check:* Ensure all Composable functions (`useModal`, `useNuxtApp`, `useRouter`, `useLocalePath`) are assigned to variables (`const modal = useModal()`, `const router = useRouter()`, `const localePath = useLocalePath()`) and not chained!
 
 ### Phase 2: Translation Coverage (via `i18n-translations`)
 **Goal:** Ensure 100% localization.

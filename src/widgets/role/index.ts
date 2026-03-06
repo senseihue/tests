@@ -1,1 +1,1 @@
-export { default as RoleModal } from "./ui/role-modal.vue"
+export { RoleModal } from "~/features/role"

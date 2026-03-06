@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { useRoleStore } from "~/entities/role"
-import { useRoleService } from "~/features/role"
-
-import { RoleListMenu } from "~/features/role"
+import { RoleListMenu, useRoleService } from "~/features/role"
 
 const { t } = useI18n()
 
 const modal = useModal()
+const localePath = useLocalePath()
 const roleStore = useRoleStore()
 const { getRoleList, filterRoleList, debouncedFilterRoleList } = useRoleService()
 const { items, loading, params } = storeToRefs(roleStore)
@@ -37,11 +36,11 @@ const cols = computed<ITableCol<IRole>[]>(() => [
   },
   {
     name: "actions",
-    label: t("thead.actions"),
+    label: t("thead.actions")
   }
 ])
 
-const showRoleModal = () => modal.show("role")
+const showRoleModal = () => navigateTo(localePath("/roles/form"))
 
 onMounted(() => getRoleList())
 </script>

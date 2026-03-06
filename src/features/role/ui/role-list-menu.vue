@@ -9,9 +9,11 @@ interface IProps {
 const props = defineProps<IProps>()
 
 const modal = useModal()
+const router = useRouter()
+const localePath = useLocalePath()
 const { deleteRole } = useRoleService()
 
-const showRoleModal = () => modal.show("role", props.id)
+const showRoleModal = () => router.push(localePath(`/roles/form/${props.id}`))
 </script>
 
 <template>

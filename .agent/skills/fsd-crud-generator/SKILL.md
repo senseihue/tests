@@ -26,7 +26,7 @@ Har safar ushbu skill chaqirilganda asosan quyidagi 8 qadam asosida bajarilishi 
 
 ### Qadam 4: Features API va Service Qatlami (`features/{entity}`)
 1. **API File:** `{entity}.api.ts` ichida ko'rib chiqilgan URL manziliga so'rov (GET, POST, PUT, DELETE) yuboruvchi metodlarini yozing.
-2. **Service File:** `{entity}.service.ts` faylini yozing. **Oltin Qoida**: Barcha Composable plaginlar (`useModal()`, `useNuxtApp()`, va h.k) avval o'zgaruvchiga olinishi va shundan so'ng ishlatilishi shart. (`const modal = useModal(); modal.show('...')` kabi).  Chaining (`useModal().show()`) mumkin emas!
+2. **Service File:** `{entity}.service.ts` faylini yozing. **Oltin Qoida**: Barcha Composable plaginlar (`useModal()`, `useNuxtApp()`, `useRouter()`, `useLocalePath()` va h.k) avval o'zgaruvchiga olinishi va shundan so'ng ishlatilishi shart. (`const modal = useModal(); modal.show('...')` kabi).  Chaining (`useModal().show()`, `useRouter().push(...)`) mumkin emas!
 
 ### Qadam 5: UI Ro'yxati (`features/{entity}/ui`)
 1. Ma'lumotlarni o'qish (Read) uchun jadval `{entity}-list.vue` ni yarating.

@@ -29,8 +29,8 @@ describe("User Service", () => {
 
     beforeEach(() => {
         mockApi = {
-            getUserList: vi.fn().mockResolvedValue({ data: { models: [{ id: 1, first_name: "Super", last_name: "Admin" }], meta: { total: 1 } } }),
-            getUserById: vi.fn().mockResolvedValue({ data: { id: 1, first_name: "Super", last_name: "Admin" } }),
+            getUserList: vi.fn().mockResolvedValue({ data: { models: [{ id: 1, first_name: "Super", last_name: "Admin", military_number: "ABC12345" }], meta: { total: 1 } } }),
+            getUserById: vi.fn().mockResolvedValue({ data: { id: 1, first_name: "Super", last_name: "Admin", military_number: "ABC12345" } }),
             createUser: vi.fn().mockResolvedValue({}),
             updateUser: vi.fn().mockResolvedValue({}),
             deleteUser: vi.fn().mockResolvedValue({}),
@@ -55,7 +55,7 @@ describe("User Service", () => {
         await new Promise(process.nextTick)
 
         expect(mockApi.getUserList).toHaveBeenCalledWith(mockStore.params)
-        expect(mockStore.items).toEqual([{ id: 1, first_name: "Super", last_name: "Admin" }])
+        expect(mockStore.items).toEqual([{ id: 1, first_name: "Super", last_name: "Admin", military_number: "ABC12345" }])
         expect(mockStore.params.total).toBe(1)
         expect(mockStore.loading).toBe(false)
     })

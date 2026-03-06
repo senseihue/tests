@@ -14,7 +14,7 @@ const cols = computed(() => [
   { name: "last_name", label: t("labels.last_name") },
   { name: "login", label: t("labels.login") },
   { name: "phone", label: t("labels.phone") },
-  { name: "status", label: t("labels.status") },
+  { name: "created_at", label: t("labels.created_at") },
   { name: "actions", label: t("thead.actions"), labelClass: "justify-end", dataClass: "right-0", fixed: true }
 ])
 
@@ -26,7 +26,7 @@ onMounted(() => getUserList())
   <div class="grow">
     <div class="app-container mb-4 flex gap-4">
       <ui-search-input v-model="params.keyword" @input="debouncedFilterUserList" @enter="filterUserList" />
-      <ui-button class="ml-auto" :label="$t('actions.add')" @click="showModal()" />
+      <ui-button class="ml-auto" :label="$t('actions.add')" @click="showModal" />
     </div>
     <div class="app-container">
       <ui-table

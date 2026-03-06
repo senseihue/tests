@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { breakpointsTailwind } from "@vueuse/core"
+import type { SidebarMenuList } from "~/entities/layout"
 import { useLayoutStore } from "~/entities/layout"
 
 import type { SidebarItem } from "vue-sidebar-menu"
-import type { SidebarMenuList } from "~/entities/layout"
+import { SidebarMenu } from "vue-sidebar-menu"
 
 // Components
 import Logo from "~/shared/assets/svg/logo.svg"
-import { SidebarMenu } from "vue-sidebar-menu"
 
 const { t } = useI18n()
 const store = useLayoutStore()
@@ -32,6 +32,11 @@ const menu = computed<SidebarMenuList>(() => [
     title: t("labels.roles"),
     icon: { element: "icon", class: "text-xl", attributes: { name: "solar:shield-up-bold-duotone" } },
     href: localePath("/roles")
+  },
+  {
+    title: t("labels.logs"),
+    icon: { element: "icon", class: "text-xl", attributes: { name: "solar:shield-up-bold-duotone" } },
+    href: localePath("/logs")
   }
 ])
 

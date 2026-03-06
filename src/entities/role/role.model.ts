@@ -24,4 +24,16 @@ export class Role {
   permissions: number[] = []
   created_at: string = ""
   includes: any[] = []
+
+  static fromRequest(dto: IRole) {
+    const role = new Role()
+    role.id = dto.id
+    role.key = dto.key
+    role.users_count = dto.users_count
+    role.name = dto.name
+    role.level = dto.level
+    role.permissions = dto.includes.permissions
+    role.created_at = dto.created_at
+    return role
+  }
 }
